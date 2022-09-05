@@ -17,6 +17,9 @@
                 <span id="playername">Marius</span>
             </div>
             <div id="points"><img src="img/points.png" /> <span id="points-count">0</span></div>
+            <div id="levels">
+                <span id="level">"Level: "</span>
+                <span id="level-count">0</span></div>
         </section>
         <aside id="hud-inventory">
             <h3>Armory</h3>
@@ -40,5 +43,42 @@
             </table>
         </aside>
     </div>
+        <script>
+            let playerName = "Mathias"
+            document.getElementById("playername").innerHTML = playerName
+
+            let playerCoins = 15
+            document.getElementById("coins-count").innerHTML = playerCoins
+
+            let playerLives = 5
+            document.getElementById("lives-count").innerHTML = playerLives
+
+            let longswordLevel = 1
+            document.getElementById("weapon-longsword").innerHTML = longswordLevel
+
+            let warhammerLevel = 1
+            document.getElementById("weapon-warhammer").innerHTML = warhammerLevel
+
+            let battleaxeLevel = 1
+            document.getElementById("weapon-battleaxe").innerHTML = battleaxeLevel
+
+            let armourLevel = 1
+            document.getElementById("weapon-armour").innerHTML = armourLevel
+
+            const worthCoins = 5
+            const worthLongswordLevel = 5
+            const worthWarhammerLevel = 15
+            const worthBattleaxeLevel = 20 
+            const worthArmourLevel = 25
+
+
+            let pointsAmount = (longswordLevel * worthLongswordLevel) + (playerCoins * worthCoins) + (warhammerLevel * worthWarhammerLevel) + (battleaxeLevel + worthBattleaxeLevel) + (armourLevel + worthArmourLevel)
+            document.getElementById("level-count").innerHTML = pointsAmount
+            
+            
+            
+            
+            
+        </script>
 </body>
 </html>
