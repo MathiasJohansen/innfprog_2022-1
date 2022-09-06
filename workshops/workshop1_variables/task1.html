@@ -23,53 +23,121 @@
         <aside id="hud-inventory">
             <h3>Armory</h3>
             <table id="showhide">
-                <tr>
-                    <td><img src="img/longsword.png"></td>
-                    <td>Level: <span id="weapon-longsword"></span></td>
-                </tr>
-                <tr>
-                    <td><img src="img/warhammer.png"></td>
-                    <td>Level: <span id="weapon-warhammer"></span></td>
-                </tr>
-                <tr>
-                    <td><img src="img/battleaxe.png"></td>
-                    <td>Level: <span id="weapon-battleaxe"></span></td>
-                </tr>
-                <tr>
-                    <td><img src="img/armour.png"></td>
-                    <td>Level: <span id="weapon-armour"></span></td>
-                </tr>
+                
+                
+                
+                
             </table>
         </aside>
     </div>
         <script>
             let playerName = "Mathias"
             document.getElementById("playername").innerHTML = playerName
-
-            let playerCoins = 15
+            let playerCoins = 1
             document.getElementById("coins-count").innerHTML = playerCoins
-
-            let playerLives = 5
+            let playerLives = 1
             document.getElementById("lives-count").innerHTML = playerLives
+            let level = 13
+            document.getElementById("level-count").innerHTML = level
 
-            let longswordLevel = 3
-            document.getElementById("weapon-longsword").innerHTML = longswordLevel
+            let longswordLevel = 10
+            let warhammerLevel = 10
+            let battleaxeLevel = 10
+            let armourLevel = 10
 
-            let warhammerLevel = 7
-            document.getElementById("weapon-warhammer").innerHTML = warhammerLevel
+            if(longswordLevel > 0){
+                document.getElementById("showhide").innerHTML = 
+                `<tr>
+                    <td><img src="img/longsword.png"></td>
+                    <td>Level: <span id="weapon-longsword"></span></td>
+                </tr>`
+                document.getElementById("weapon-longsword").innerHTML = longswordLevel
+            }
+            
 
-            let battleaxeLevel = 2
-            document.getElementById("weapon-battleaxe").innerHTML = battleaxeLevel
+            
+              
+            if(warhammerLevel > 0){
+                document.getElementById("showhide").innerHTML= document.getElementById("showhide").innerHTML +
+                `<tr>
+                    <td><img src="img/warhammer.png"></td>
+                    <td>Level: <span id="weapon-warhammer"></span></td>
+                </tr>`
+                document.getElementById("weapon-warhammer").innerHTML = warhammerLevel
+            }
+           
+            
+            
+            if(battleaxeLevel > 0){
+                document.getElementById("showhide").innerHTML= document.getElementById("showhide").innerHTML +
+                `<tr>
+                    <td><img src="img/battleaxe.png"></td>
+                    <td>Level: <span id="weapon-battleaxe"></span></td>
+                </tr>`
+                document.getElementById("weapon-battleaxe").innerHTML = battleaxeLevel
+            }
+            
 
-            let armourLevel = 3
-            document.getElementById("weapon-armour").innerHTML = armourLevel
-
+            
+           
+            if(armourLevel > 0){
+                document.getElementById("showhide").innerHTML= document.getElementById("showhide").innerHTML +
+                `<tr>
+                    <td><img src="img/armour.png"></td>
+                    <td>Level: <span id="weapon-armour"></span></td>
+                </tr>`
+                document.getElementById("weapon-armour").innerHTML = armourLevel
+            }
 
             let pointsAmount = (longswordLevel * 5) + (playerCoins * 5) + (warhammerLevel * 15) + (battleaxeLevel + 20) + (armourLevel + 25)
             document.getElementById("points-count").innerHTML = pointsAmount
 
-            let level = 1
-            document.getElementById("level-count").innerHTML = level
+           
+
+
+
+           
+
+           
+            if(playerCoins > 0){
+               document.getElementById("coins-count").innerHTML = playerCoins 
+            } else{
+                document.getElementById("coins-count").innerHTML = "Collect some coins" 
+            }
+
+           
+            
+
+            if(longswordLevel >= 10){
+                document.getElementById("weapon-longsword").style.color = "gold";
+                document.getElementById("weapon-longsword").innerHTML = longswordLevel
+            }
+            if(warhammerLevel >= 10){
+                document.getElementById("weapon-warhammer").style.color = "gold";
+                document.getElementById("weapon-warhammer").innerHTML = warhammerLevel
+            } 
+            
+            if(battleaxeLevel >= 10){
+                document.getElementById("weapon-battleaxe").style.color = "gold";
+                document.getElementById("weapon-battleaxe").innerHTML = battleaxeLevel
+            } 
+
+            if(armourLevel >= 10){
+                document.getElementById("weapon-armour").style.color = "gold";
+                document.getElementById("weapon-armour").innerHTML = armourLevel
+            } 
+
+
+            if(playerLives == 1){
+                document.getElementById("lives-count").style.color = "red";
+                document.getElementById("lives-count").innerHTML = playerLives
+            } 
+
+
+
+            
+
+           
             
             
             
