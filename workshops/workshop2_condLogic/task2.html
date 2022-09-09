@@ -33,10 +33,17 @@
         <script>
             let playerName = "Mathias"
             document.getElementById("playername").innerHTML = playerName
-            let playerCoins = 1
-            document.getElementById("coins-count").innerHTML = playerCoins
+
+            let playerCoins = 0
+            if(playerCoins === 0){
+                document.getElementById("coins-count").innerHTML = "Collect some coins"
+            } else{
+               document.getElementById("coins-count").innerHTML = playerCoins  
+            }
+
             let playerLives = 1
             document.getElementById("lives-count").innerHTML = playerLives
+            
             let level = 13
             document.getElementById("level-count").innerHTML = level
 
@@ -53,7 +60,6 @@
                 </tr>`
                 document.getElementById("weapon-longsword").innerHTML = longswordLevel
             }
-            
 
             
               
@@ -79,7 +85,6 @@
             
 
             
-           
             if(armourLevel > 0){
                 document.getElementById("showhide").innerHTML= document.getElementById("showhide").innerHTML +
                 `<tr>
@@ -92,26 +97,12 @@
             let pointsAmount = (longswordLevel * 5) + (playerCoins * 5) + (warhammerLevel * 15) + (battleaxeLevel + 20) + (armourLevel + 25)
             document.getElementById("points-count").innerHTML = pointsAmount
 
-           
-
-
-
-           
-
-           
-            if(playerCoins > 0){
-               document.getElementById("coins-count").innerHTML = playerCoins 
-            } else{
-                document.getElementById("coins-count").innerHTML = "Collect some coins" 
-            }
-
-           
-            
 
             if(longswordLevel >= 10){
                 document.getElementById("weapon-longsword").style.color = "gold";
                 document.getElementById("weapon-longsword").innerHTML = longswordLevel
             }
+
             if(warhammerLevel >= 10){
                 document.getElementById("weapon-warhammer").style.color = "gold";
                 document.getElementById("weapon-warhammer").innerHTML = warhammerLevel
@@ -128,21 +119,21 @@
             } 
 
 
+
             if(playerLives == 1){
                 document.getElementById("lives-count").style.color = "red";
                 document.getElementById("lives-count").innerHTML = playerLives
             } 
 
-
-
-            
-
-           
-            
-            
-            
-            
-            
+            //Marius sin løsning på coins
+            //let playerCoins = 1
+            //let coinsPrint = ""
+            //if(playerCoins > 0){
+            //    coinsPrint = playerCoins
+            //} else{
+            //    coinsPrint = "Collect some coins"
+            //}
+            //document.getElementById("coins-count").innerHTML = coinsPrint
         </script>
 </body>
 </html>
