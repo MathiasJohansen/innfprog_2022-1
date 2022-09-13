@@ -17,57 +17,132 @@
                 <span id="playername">Marius</span>
             </div>
             <div id="points"><img src="img/points.png" /> <span id="points-count">0</span></div>
-            <!-- Oppgave 6: opprettet HTML-struktur for å skrive ut level -->
             <div id="level">Level: <span id="level-count">0</span></div>
+            
         </section>
         <aside id="hud-inventory">
             <h3>Armory</h3>
             <table id="showhide">
+
+                <!--
                 <tr>
                     <td><img src="img/longsword.png"></td>
                     <td>Level: <span id="weapon-longsword"></span></td>
                 </tr>
-                <tr>
-                    <td><img src="img/warhammer.png"></td>
-                    <td>Level: <span id="weapon-warhammer"></span></td>
-                </tr>
+              
                 <tr>
                     <td><img src="img/battleaxe.png"></td>
                     <td>Level: <span id="weapon-battleaxe"></span></td>
                 </tr>
+              
                 <tr>
                     <td><img src="img/armour.png"></td>
                     <td>Level: <span id="weapon-armour"></span></td>
                 </tr>
+             
+                <tr>
+                    <td><img src="img/armour.png"></td>
+                    <td>Level: <span id="weapon-armour"></span></td>
+                </tr>
+               -->      
             </table>
         </aside>
     </div>
+        <script>
+            let playerName = "Mathias"
+            document.getElementById("playername").innerHTML = playerName
 
-    <script>
-        //Oppgave 1: Spillernavn
-        const playerName = "Hiof"
-        document.getElementById("playername").innerHTML = playerName
-        //Oppgave 2: Penger
-        let coins = 15
-        document.getElementById("coins-count").innerHTML = coins
-        //Oppgave 3: Liv
-        let lives = 5
-        document.getElementById("lives-count").innerHTML = lives
-        //Oppgave 4: Våpen-nivåer:
-        let longsword = 1
-        let warhammer = 4
-        let battleaxe = 2
-        let armour = 3
-        document.getElementById("weapon-longsword").innerHTML = longsword
-        document.getElementById("weapon-warhammer").innerHTML = warhammer
-        document.getElementById("weapon-battleaxe").innerHTML = battleaxe
-        document.getElementById("weapon-armour").innerHTML = armour
-        //Oppgave 5: Utregning av poeng
-        let points = (coins * 5) + (longsword * 5) + (warhammer * 15) + (battleaxe * 20) + (armour * 25)
-        document.getElementById("points-count").innerHTML = points
-        //Oppgave 6: Utskrift av level
-        let level = 1
-        document.getElementById("level-count").innerHTML = level
-    </script>
+            let playerCoins = 0
+            if(playerCoins === 0){
+                document.getElementById("coins-count").innerHTML = "Collect some coins"
+            } else{
+               document.getElementById("coins-count").innerHTML = playerCoins  
+            }
+
+            let playerLives = 1
+            document.getElementById("lives-count").innerHTML = playerLives
+            
+            let level = 13
+            document.getElementById("level-count").innerHTML = level
+
+            let longswordLevel = 10
+            let warhammerLevel = 5
+            let battleaxeLevel = 10
+            let armourLevel = 15
+
+            const armoryTable = document.getElementById("showhide")
+
+            if(longswordLevel > 0){
+                armoryTable.innerHTML = 
+                `<tr>
+                    <td><img src="img/longsword.png"></td>
+                    <td>Level: <span id="weapon-longsword">${longswordLevel}</span></td>
+                </tr>`
+                if(longswordLevel >= 10){
+                document.getElementById("weapon-longsword").style.color = "gold"
+                }
+            }
+
+            
+              
+            if(warhammerLevel > 0){
+                armoryTable.innerHTML= armoryTable.innerHTML +
+                `<tr>
+                    <td><img src="img/warhammer.png"></td>
+                    <td>Level: <span id="weapon-warhammer">${warhammerLevel}</span></td>
+                </tr>`
+                if(warhammerLevel >= 10){
+                document.getElementById("weapon-warhammer").style.color = "gold";
+            }
+            }
+           
+            
+            
+            if(battleaxeLevel > 0){
+                armoryTable.innerHTML= armoryTable.innerHTML +
+                `<tr>
+                    <td><img src="img/battleaxe.png"></td>
+                    <td>Level: <span id="weapon-battleaxe">${battleaxeLevel}</span></td>
+                </tr>`
+                if(battleaxeLevel >= 10){
+                document.getElementById("weapon-battleaxe").style.color = "gold";
+            } 
+            }
+            
+
+            
+            if(armourLevel > 0){
+                armoryTable.innerHTML= armoryTable.innerHTML +
+                `<tr>
+                    <td><img src="img/armour.png"></td>
+                    <td>Level: <span id="weapon-armour">${armourLevel}</span></td>
+                </tr>`
+                if(armourLevel >= 10){
+                document.getElementById("weapon-armour").style.color = "gold";
+            } 
+            }
+
+
+
+            let pointsAmount = (longswordLevel * 5) + (playerCoins * 5) + (warhammerLevel * 15) + (battleaxeLevel * 20) + (armourLevel * 25)
+            document.getElementById("points-count").innerHTML = pointsAmount
+
+
+
+            if(playerLives === 1){
+                document.getElementById("lives-count").style.color = "red";
+                document.getElementById("lives-count").innerHTML = playerLives
+            } 
+
+            /*Marius sin løsning på coins
+            let playerCoins = 1
+            let coinsPrint = ""
+            if(playerCoins > 0){
+                coinsPrint = playerCoins
+            } else{
+                coinsPrint = "Collect some coins"
+            }
+            document.getElementById("coins-count").innerHTML = coinsPrint*/
+        </script>
 </body>
 </html>
