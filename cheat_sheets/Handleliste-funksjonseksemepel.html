@@ -18,7 +18,21 @@
     </article>
     <script>
         const fruits = ["Epler", "Bananer", "Brokkoli"]
-        fruits.map(fruit => document.getElementById("fruits").innerHTML += `<li>${fruit}</li>`)
+        //fruits.map(fruit => document.getElementById("fruits").innerHTML += `<li>${fruit}</li>`)
+
+        const meats = ["kjøttdeig", "Laks", "Biff", "Fiskekaker"]
+        //meats.map(meat => document.getElementById("meat").innerHTML += `<li>${meat}</li>`)
+
+        const misc = ["Dopapir", "Tannbørste", "Oppvaskmiddel"]
+
+        function listPrint(id, array) {
+            array.map(food => document.getElementById(id).innerHTML += `<li>${food}</li>`)
+        }
+
+        listPrint("fruits", fruits)
+        listPrint("meat", meats)
+        listPrint("misc", misc)
+
     </script>
 </body>
 </html>
