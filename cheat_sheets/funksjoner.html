@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="text" onclick="textchange()">Her står det tekst. denne blir byttet ut av textChangeParameter-kallet på linje 22.</p>
+    <p>Resultat: <span id="result"></span></p>
+    <script>
+        function textChange() {
+            document.getElementById("text").innerHTML = "Dette er en annen tekst"
+        }
+
+        function textChangeParameter(textString) {
+            document.getElementById("text").innerHTML = textString
+        }
+
+        textChangeParameter("Dette er en tekst sendt med som parameter. Denne kan du klikke på for å kalle textChange () via onClick")
+
+        function add(number1, number2) {
+            const result = number1 + number2
+            return result
+        }
+
+        document.getElementById("result").innerHTML = (3,5)
+    </script>
+</body>
+</html>
