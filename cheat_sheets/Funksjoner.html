@@ -4,19 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Functions cheat sheet</title>
+    <title>Document</title>
 </head>
-<body>
-    <p id="text" onclick="textChange()">Her står det en tekst</p>
+    <body>
+        <p id="text" onClick="textChange()">Her står det en text. Klikk meg. Denne blir byttet ut av textChangeParameter-kallet på linje 18</p>
+        <p>Resultat: <span id="result"></span></p>
+        <p>Billetten tilhører <span id="person"></span></p>
+        <script>
 
-    <script>
+            function textChange() {
+                document.getElementById("text").innerHTML = "Her står det en annen text"
+            }
 
+            function textChangeParameter(textString) {
+                document.getElementById("text").innerHTML = textString
+            }
 
-        function textChange() {
-            document.getElementById("text").innerHTML = "Her står det en annen tekst"
-        }
+            textChangeParameter("Dette er en tekst sendt med som parameter. Denne kan du klikke på for å kalle textChange() via onCLick")
 
-        
-    </script>
-</body>
+            function add (number1 = 0, number2 = 0) {
+                const result = number1 + number2
+                return result
+            }
+
+            document.getElementById("result").innerHTML = (add(3,5))
+
+            function personName(firstname, lastname, gender) {
+                if(!firstname || !lastname) {
+                    alert("Du må fylle ut fornavn og etternavn")
+                } else {
+                    let nameString = ""
+                    if(gender === "female") { nameString += "Mrs. " }
+                    if(gender === "male") { nameString += "Mr. " }
+                    nameString += firstname[0] + ". " + lastname
+                    return nameString
+                }
+
+               
+            }
+            document.getElementById("person").innerHTML = personName("Marius", "Akerbæk", "male")
+            
+           
+        </script>
+    </body>
 </html>
