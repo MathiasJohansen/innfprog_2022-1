@@ -39,7 +39,7 @@
             playerName: "Mathias",
             lives: 3,
             coins: 50,
-            level: 1
+            level: 5
         }
         //PLAYERNAME
         document.getElementById("playername").innerHTML = gameConfig.playerName
@@ -56,7 +56,7 @@
         //LIVES
         const livesPrint = document.getElementById("lives-count")
         livesPrint.innerHTML = gameConfig.lives
-        if(lives < 2) {
+        if(gameConfig.lives < 2) {
             livesPrint.style.color = "red"
         }
 
@@ -65,32 +65,47 @@
         const armory = [
             {
                 weaponName: "Longsword",
-                weaponIcon: "img/longsword.png",
+                weaponIcon: "longsword",
                 level: 10,
                 value: 5
             },
             {
                 weaponName: "Warhammer",
-                weaponIcon: "img/warhammer.png",
+                weaponIcon: "warhammer",
                 level: 1,
                 value: 15
             },
             {
                 weaponName: "Battleaxe",
-                weaponIcon: "img/battleaxe.png",
-                level: 0,
+                weaponIcon: "battleaxe",
+                level: 2,
                 value: 20
             },
             {
                 weaponName: "Armour",
-                weaponIcon: "img/armour.png",
+                weaponIcon: "armour",
                 level: 13,
                 value: 25
             }
         ]
 
-        const armoryHTML = ""
-        armory.map(
+        let armoryHTML = ""
+        let armoryPoints = 0
+
+
+        armory.map(armory => {
+            armory.level > 0 ? armoryHTML += `<tr>
+            <td><img src="img/${armory.weaponIcon}.png" />${armory.weaponName}</td>
+            <td>Level: <span class=${armory.level >= 10 ? "gold" : ""}> ${armory.level}</td>
+            </tr>` : null
+            armoryPoints += armory.level * armory.value
+        })
+
+            document.getElementById("showhide").innerHTML = armoryHTML
+
+            console.log(armoryPoints)
+
+       /*armory.map(
             armory => {if(armory.level > 0)document.getElementById("showhide").innerHTML += 
             `
             <tr>
@@ -99,7 +114,7 @@
                 <td>Level: <span class=${armory.level >= 10 ? "gold" : ""}>${armory.level}</span></td>
             </tr>
             `}
-        )
+        )*/
 
        
         armory.map(armory => document.getElementById("points-count").innerHTML += (armory.level*armory.value))
@@ -164,11 +179,11 @@
             if(armour >= 10) {
                 document.getElementById("weapon-armour").style.color = "gold"
             }
-        }
+        }*/
 
         //POINTS
-        let points = (gameConfig.coins * 5) + (armory.weaponName * armory.value) + (warhammer * armory.value) + (battleaxe * armory.value) + (armour * armory.value)
-        document.getElementById("points-count").innerHTML = points*/
+        let points = (gameConfig.coins * 5) + armoryPoints
+        document.getElementById("points-count").innerHTML = points
         
         //Level
         document.getElementById("level-count").innerHTML = gameConfig.level
