@@ -19,6 +19,16 @@
             <div id="points"><img src="img/points.png" /> <span id="points-count">0</span></div>
             <div id="level">Level: <span id="level-count">0</span></div>
         </section>
+        <section id="playarea">
+            <div>
+                <button type="button" onClick="modifyCoins(5)">Add 5 coins</button>
+                <button type="button" onClick="modifyCoins(-5)">Lose 5 coins</button>
+            </div>
+            <div>
+                <button type="button" onClick="modifyLife(1)">Gain 1 life</button>
+                <button type="button" onClick="modifyLife(-1)">Lose 1 life</button>
+            </div>
+        </section>
         <aside id="hud-inventory">
             <h3>Armory</h3>
             <table id="showhide">
@@ -32,7 +42,7 @@
     <script>
         //WS3, OPPG1:
         const gameConfig = {
-            playerName: "Hiof",
+            playerName: "Mathias",
             coins: 50,
             lives: 3,
             level: 1
@@ -48,6 +58,24 @@
             coinsPrint = "Collect some coins"
         }
         document.getElementById("coins-count").innerHTML = coinsPrint
+
+        function modifyCoins(modifyer){
+
+            gameConfig.coins = gameConfig.coins + modifyer
+            if(gameConfig.coins <= 0) {
+                gameConfig.coins = 0
+                document.getElementById("coins-count").innerHTML = "Get some Coins"
+            } else {
+            document.getElementById("coins-count").innerHTML = gameConfig.coins
+        }
+        }
+
+        function modifyLife(modifyer){
+            gameConfig.lives = gameConfig.lives + modifyer
+            console.log(gameConfig.lives)
+            document.getElementById("lives-count").innerHTML = gameConfig.lives
+
+        }
         
         //LIVES - INITIAL PRINT
         const livesPrint = document.getElementById("lives-count")

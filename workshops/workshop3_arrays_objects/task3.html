@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Workshop 1: Variabler</title>
     <link href="task3.css" rel="stylesheet" media="all">
+    <style>
+        .gold {
+            color: gold;
+        }
+    </style>
 </head>
 <body>
     <div id="gamearea">
@@ -16,7 +21,7 @@
                 <img src="img/person.png" />
                 <span id="playername">Marius</span>
             </div>
-            <div id="points"><img src="img/points.png" /> <span id="points-count">0</span></div>
+            <div id="points"><img src="img/points.png" /> <span id="points-count"></span></div>
             <div id="level">Level: <span id="level-count">0</span></div>
         </section>
         <aside id="hud-inventory">
@@ -30,30 +35,94 @@
     </div>
 
     <script>
+        const gameConfig = {
+            playerName: "Mathias",
+            lives: 3,
+            coins: 50,
+            level: 5
+        }
         //PLAYERNAME
-        const playerName = "Hiof"
-        document.getElementById("playername").innerHTML = playerName
+        document.getElementById("playername").innerHTML = gameConfig.playerName
         
         //COINS
-        let coins = 10
         let coinsPrint = ""
-        if(coins > 0) {
-            coinsPrint = coins
+        if(gameConfig.coins > 0) {
+            coinsPrint = gameConfig.coins
         } else {
             coinsPrint = "Collect some coins"
         }
         document.getElementById("coins-count").innerHTML = coinsPrint
         
         //LIVES
-        let lives = 1
         const livesPrint = document.getElementById("lives-count")
-        livesPrint.innerHTML = lives
-        if(lives < 2) {
+        livesPrint.innerHTML = gameConfig.lives
+        if(gameConfig.lives < 2) {
             livesPrint.style.color = "red"
         }
 
         //ARMORY
-        let longsword = 11
+
+        const armory = [
+            {
+                weaponName: "Longsword",
+                weaponIcon: "longsword",
+                level: 10,
+                value: 5
+            },
+            {
+                weaponName: "Warhammer",
+                weaponIcon: "warhammer",
+                level: 1,
+                value: 15
+            },
+            {
+                weaponName: "Battleaxe",
+                weaponIcon: "battleaxe",
+                level: 2,
+                value: 20
+            },
+            {
+                weaponName: "Armour",
+                weaponIcon: "armour",
+                level: 13,
+                value: 25
+            }
+        ]
+
+        let armoryHTML = ""
+        let armoryPoints = 0
+
+
+        armory.map(armory => {
+            armory.level > 0 ? armoryHTML += `<tr>
+            <td><img src="img/${armory.weaponIcon}.png" />${armory.weaponName}</td>
+            <td>Level: <span class=${armory.level >= 10 ? "gold" : ""}> ${armory.level}</td>
+            </tr>` : null
+            armoryPoints += armory.level * armory.value
+        })
+
+            document.getElementById("showhide").innerHTML = armoryHTML
+
+            console.log(armoryPoints)
+
+       /*armory.map(
+            armory => {if(armory.level > 0)document.getElementById("showhide").innerHTML += 
+            `
+            <tr>
+                <td><img src=${armory.weaponIcon}></td>
+                <td>${armory.weaponName}</td>
+                <td>Level: <span class=${armory.level >= 10 ? "gold" : ""}>${armory.level}</span></td>
+            </tr>
+            `}
+        )*/
+
+       
+        armory.map(armory => document.getElementById("points-count").innerHTML += (armory.level*armory.value))
+
+
+
+
+        /*let longsword = 11
         let warhammer = 14
         let battleaxe = 12
         let armour = 13
@@ -110,15 +179,14 @@
             if(armour >= 10) {
                 document.getElementById("weapon-armour").style.color = "gold"
             }
-        }
+        }*/
 
         //POINTS
-        let points = (coins * 5) + (longsword * 5) + (warhammer * 15) + (battleaxe * 20) + (armour * 25)
+        let points = (gameConfig.coins * 5) + armoryPoints
         document.getElementById("points-count").innerHTML = points
         
         //Level
-        let level = 1
-        document.getElementById("level-count").innerHTML = level
+        document.getElementById("level-count").innerHTML = gameConfig.level
     </script>
 </body>
 </html>
