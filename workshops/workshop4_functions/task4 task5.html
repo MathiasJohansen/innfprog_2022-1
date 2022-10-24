@@ -50,42 +50,101 @@
         canvas.height = 600
         const ctx = canvas.getContext("2d")
         
+        //Funksjon som tegner firkanten
+        const hero = {
+            fillcolor: "green",
+            width: 50,
+            height: 50
+        }
+        function drawRect() {
+            ctx.beginPath()
+            ctx.fillStyle = hero.fillcolor
+            ctx.fillRect(x, y, hero.width, hero.height)
+            ctx.closePath()
+        }
 
         function drawEnemy(x, y) {
             ctx.beginPath()
-            ctx.rect(x, y, 20, 60)
             ctx.fillStyle = "#B61010"
-            ctx.fill()
+            ctx.fillRect(x, y, 20, 60)
             ctx.closePath()
         
         }
 
+         //startpunkt for x og y i tegning av firkant
+         let x = 0
+        let y = 0
+        //startpunkt for retning (ingen retning før tastetrykk)
+        //https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/styre-bevegelse
+        let left = false
+        let right = false
+        let up = false
+        let down = false
+        //starthastighet
+        let boost = 1
+
+        //Registrere knappetrykk
+        //https://lms.webtricks.blog/kurs/innforing-i-programmering/8-brukerinput/tastaturinput
+        document.addEventListener("keydown", event => {
+                //Hvis event.key er en piltast, set verdien av direction i henhold til pil
+                if(event.key === "ArrowRight") {
+                    right = true
+                }
+                if(event.key === "ArrowLeft") {
+                    left = true
+                }
+                if(event.key === "ArrowUp") {
+                    up = true
+                }
+                if(event.key === "ArrowDown") {
+                    down = true
+                }
+
+                //Hvis s er trykket ned, sett boost til 5 (flytt flere pixler per opptegning)
+                if(event.key === "s") {
+                    boost = 5
+                }
+            }
+        )
+        //Registrere at vi slipper opp knappetrykk:
+        //https://lms.webtricks.blog/kurs/innforing-i-programmering/8-brukerinput/tastaturinput
+        document.addEventListener("keyup", event => {
+            //Når vi slipper opp en piltast, sett direction til false for å slutte å bevege elementet.
+            event.key === "ArrowRight" ? right = false : null
+            event.key === "ArrowLeft" ? left = false : null
+            event.key === "ArrowUp" ? up = false : null
+            event.key === "ArrowDown" ? down = false : null
+            //Når s-tasten slippes, sett boost tilbake til 1
+            if(event.key === "s") {
+                boost = 1
+            }
+        })
+
         function enemyMove() {
                 //tøm hele canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
             //tegn firkant
-            drawEnemy(x, y)
+            drawEnemy(enemyX, enemyY)
         
-            x = x + speed
+            enemyX = enemyX + speed
 
-            if ((x + 20) >= canvas.width) {
-                y = Math.random() * canvas.height
-                x = 0
+            if ((enemyX + 20) >= canvas.width) {
+                enemyY = Math.random() * canvas.height
+                enemyX = 0
             }
 
             
     
             //fortsett requestAnimationFrame
-            requestAnimationFrame(enemyMove)
+            
         }
 
         function randomMinMax(min, max) {
                     return Math.floor(Math.random() * (max - min + 1) + min)
                 }
                 
-        let x = 0
+        let enemyX = 0
         let speed = 5
-        let y = Math.random() * canvas.height
+        let enemyY = Math.random() * canvas.height
 
         let canSpawnCoins = true
         const coinsSpawn = []
@@ -102,25 +161,61 @@
             })
         }
 
-        function drawCoin(x, y, r) {
+        function drawCoin(x, y, radius) {
             ctx.beginPath()
             ctx.fillStyle = "gold"
-            ctx.arc(x, y, r, 0, 2 * Math.PI)
+            ctx.arc(x, y, radius, 0, 2 * Math.PI)
             ctx.fill()
             ctx.closePath()
+
+            
         }
 
         
 
 
         function drawElements(){
+            //tøm hele canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height)
+            //tegn firkant
+            drawRect()
+            //oppdater posisjon til neste tegning
+            if(right === true) { x = x + boost }
+            if(left === true) { x = x - boost }
+            if(up === true) { y = y - boost }
+            if(down === true) { y = y + boost }
 
-            enemyMove()
-            
-            coinsSpawn.map(coinsSpawn => {
-            drawCoin(coinsSpawn.x, coinsSpawn.y, coinsSpawn.r)
+            //Klargjør variabel for å lagre kollisjon
+            let collision = false
+
+
+            coinsSpawn.map(spawn => {
+                drawCoin(spawn.x, spawn.y, spawn.radius)
+                if(
+                    /*x + hero.width > (spawn.x - 10) && 
+                    x + hero.width > spawn.x && 
+                    x + hero.width > (spawn.x + 10) && 
+                    x < (spawn.x - 10) + spawn.radius &&
+                    x < (spawn.x + 10) + spawn.radius &&  
+                    y + hero.height > (spawn.y - 10) && 
+                    y + hero.height > spawn.y && 
+                    y + hero.height > (spawn.y + 10) && 
+                    y < (spawn.y - 10) + spawn.radius &&
+                    y < (spawn.y + 10) + spawn.radius*/
+                    x + hero.width > spawn.x && 
+                    x < spawn.x + spawn.radius && 
+                    y + hero.height > spawn.y && 
+                    y < spawn.y + spawn.radius
+                ) {
+                    //Hvis kollisjon, set colloision til true
+                    collision = true
+                    console.log(collision)
+                }
             })
+            enemyMove()
+           
+            
+            requestAnimationFrame(drawElements) 
         }
         requestAnimationFrame(drawElements) 
 
